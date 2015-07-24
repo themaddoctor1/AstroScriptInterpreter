@@ -58,8 +58,6 @@ def runProgram(program, RAM = {}):
 def valueOf(value, RAM):
     newValue = str(value)
 
-    print(newValue)
-
     #Plug in variables
     while "$" in newValue:
 
