@@ -1,4 +1,4 @@
-import sys
+import sys, os
 
 
 ##Makes the program easier to work with.
@@ -185,7 +185,8 @@ def valueOf(value, RAM):
 
 
 #Opens up the file containing the program
-file = open("C:/Users/Christopher/Documents/PycharmProjects/AstroScriptInterpreter/program.txt")
+path = os.path.realpath(__file__)
+file = open(path[:len(path)-14] + "/program.txt")
 
 #Transcribes the program into an array
 programLines = interpretFile(file)
