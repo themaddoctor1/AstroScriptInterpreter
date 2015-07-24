@@ -1,0 +1,8 @@
+$count$ = #{1}
+$sum$ = #{0}
+for 5
+    $sum$ = #{$sum$ + $count$}
+    $count$ = #{$count$ + 1}
+    print $sum$
+endfor
+print $sum$
