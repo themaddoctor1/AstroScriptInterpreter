@@ -26,8 +26,13 @@ def runLine(program = [""], RAM = {}):
         for i in range(1, lastLine):
             subProgram.append(program[i][4:])
 
+        newRAM = RAM.copy()
+
         for i in range(int(currentLine[4:])):
-            runProgram(subProgram, RAM)
+            runProgram(subProgram, newRAM)
+
+        for key in RAM.keys():
+            RAM[key] = newRAM[key]
 
         return program[lastLine+1:len(program)]
 
