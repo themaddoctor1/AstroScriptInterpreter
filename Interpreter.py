@@ -62,14 +62,30 @@ def runProgram(program, RAM = {}):
 #Interprets a value for the program.
 def valueOf(value, RAM):
     newValue = str(value)
-
+    
+    
+    while newValue[0] == " ":
+        newValue = newValue[1:]
+    
+    while(newValue[len(newValue)-1] == " "):
+        newValue = newValue[0:len(newValue)-1]
+    
+    if(newValue.startswith("$")):
+        varName = newValue[1:newValue.index("$",1)]
+        if len(newValue) - len(varName) != 2:
+            try:
+                return RAM[varName] + valueOf(newValue[newValue.index("$",1)+1:], RAM)
+            except:
+                return str(RAM[varName]) + str(valueOf(newValue[newValue.index("$",1)+1:], RAM))
+        else:
+            return RAM[varName]
+    
     #Plug in variables
     while "$" in newValue:
-
         #First, find the range inside of which the variable is stored.
         firstIndex = -1
         secondIndex = -1
-
+        
         for i in range(len(newValue)):
             if newValue[i] == "$":
                 if(firstIndex < 0):
@@ -85,10 +101,12 @@ def valueOf(value, RAM):
         newValue = newValue.replace("$" + varName + "$", str(RAM[varName]))
 
     if newValue.startswith("#{"):
-
         #Isolates the function.
         function = newValue[2:newValue.index("}")] + " "
-
+        
+        if newValue.index("}") != len(newValue) - 1:
+            return valueOf("#{%s}" %(function[:len(function)-1]), RAM) + valueOf(newValue[newValue.index("}") + 1], RAM)
+        
         ##Removes unnecessary blank spaces.
         while function[0] == " ":
             function = function[1:]
@@ -183,10 +201,17 @@ def valueOf(value, RAM):
             for c in valueList:
                 newValue += str(str(c) + " ")
             return valueOf("#{" + newValue[:len(newValue)], RAM)
-
-
-
-    return newValue
+    elif(newValue.startswith("\"")):
+        #Isolates the String.
+        textOutput = newValue[1:newValue.index("\"", 2)] + " "
+        if newValue.index("\"",1) != len(newValue) - 1:
+            return valueOf("\"%s\"" %(textOutput[:len(textOutput)-1]), RAM) + valueOf(newValue[newValue.index("\"") + 1], RAM)
+        return textOutput
+    else:
+        try:
+            return float(newValue)
+        except ValueError:
+            return ""
 
 
 #Opens up the file containing the program
