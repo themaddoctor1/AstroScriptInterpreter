@@ -27,7 +27,7 @@ They can be assigned a value by writing:
 
 ```$var$ = [YOUR VALUE HERE]```
 
-The spacing should be written exactly as shown, or the program will not be able to interpret it.
+The spacing should be written exactly as shown, or the program will not be able to interpret it. There should be one space between the equals sign and any value(s) that you place into the variable.
 
 ####Values
 Currently, there is support for numeric and String values. Numeric values currently have to be assigned EXACTLY as follows:
@@ -36,9 +36,18 @@ Currently, there is support for numeric and String values. Numeric values curren
 
 Numeric functions can include all PEMDAS operations (Parentheses, ^, *, /, +, -), as well as variables.
 Spacing is not important, but mathematical correctness is.
+Strings can be inputted by putting the desired input in quotations. For example:
 
-Keep in mind that any values that are not designated as numbers will automatically be assumed to be Strings, and will be treated as such.
-Also, Strings can not be concatenated or modified without completely replacing them at the moment.
+```$message$ = "Hello world"```
+
+is a properly formatted String that will output ```Hello world```. If any other data types are inserted into a variable at the same time, they will be converted into a String and concatenated onto the string. So, by doing this:
+
+```
+$var$ = "The answer to life, the Universe and Everything is " #{7 * 6}
+print $var$
+```
+
+Should output ```The answer to life, the Universe and Everything is 42```.
 
 ####Output
 Output is done very simply by doing this:
@@ -49,13 +58,13 @@ The value outputted can be any variable or value that can be inputted into a var
 Basically, if you can assign it to a variable, you can output it, meaning that
 
 ```
-$var$ = Hello world
+$var$ = "Hello world"
 print $var$
 ```
 
 is the same as
 
-```print Hello world```
+```print "Hello world"```
 
 ####For loops
 A for loop is written as so:
@@ -70,7 +79,7 @@ The parameter for the for statement does not need to be formatted, but it must b
 
 ```
 for 10
-    print Hi
+    print "Hi"
 endfor
 ```
 
